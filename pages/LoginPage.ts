@@ -14,7 +14,7 @@ export class LoginPage {
     async login(username: string, password: string) {
 
         await this.page.getByText('Log in with IDIR').click();
-
+        await this.page.waitForLoadState('domcontentloaded');
         const userInput = this.page.locator('input[name="user"]');
         await userInput.waitFor({ state: 'visible', timeout: 90000 });
         await userInput.fill(username);
