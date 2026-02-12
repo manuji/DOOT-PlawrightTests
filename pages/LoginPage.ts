@@ -14,11 +14,12 @@ export class LoginPage {
     async login(username: string, password: string) {
 
         await this.page.getByText('Log in with IDIR').click();
-        await this.page.waitForLoadState('domcontentloaded');
+
+        await this.page.waitForLoadState('networkidle');
+        
         const userInput = this.page.locator('input[name="user"]');
         await userInput.waitFor({ state: 'visible', timeout: 90000 });
         await userInput.fill(username);
-
         await this.page.fill('input[name="password"]', password);
         await this.page.click('input[type="submit"]');
 
