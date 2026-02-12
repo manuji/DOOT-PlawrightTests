@@ -15,12 +15,16 @@ export class LoginPage {
 
         await this.page.getByText('Log in with IDIR').click();
 
-        await this.page.waitForLoadState('networkidle');
-
-        await this.page.waitForTimeout(120000); // Wait for 120 seconds to ensure the login page is fully loaded
+         // wait until the redirected login form is actually ready
+        await this.page.waitForSelector('input[name="user"]', { timeout: 30_000 });
         await this.page.fill('input[name="user"]', username);
+
+        await this.page.waitForSelector('input[name="password"]', { timeout: 30_000 });
         await this.page.fill('input[name="password"]', password);
+
         await this.page.click('input[type="submit"]');
 
     }
 }
+
+
