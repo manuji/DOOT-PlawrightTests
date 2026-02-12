@@ -16,10 +16,9 @@ export class LoginPage {
         await this.page.getByText('Log in with IDIR').click();
 
         await this.page.waitForLoadState('networkidle');
-        
-        const userInput = this.page.locator('input[name="user"]');
-        await userInput.waitFor({ state: 'visible', timeout: 90000 });
-        await userInput.fill(username);
+
+        await this.page.waitForTimeout(120000); // Wait for 120 seconds to ensure the login page is fully loaded
+        await this.page.fill('input[name="user"]', username);
         await this.page.fill('input[name="password"]', password);
         await this.page.click('input[type="submit"]');
 
